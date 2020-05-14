@@ -1,0 +1,524 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:QBSIssueTracker"   
+             xmlns:localX1="clr-namespace:QBSIssueTracker.SizeConverter"
+             xmlns:localRenderers="clr-namespace:QBSIssueTracker.CusromRenderers"
+             mc:Ignorable="d"
+             
+             xmlns:viewModels="clr-namespace:ViewModels;assembly=ViewModels"
+             x:Class="QBSIssueTracker.EditIssueView"
+             x:Name="MainView">
+    <ContentView.BindingContext>
+        <viewModels:EditIssueView x:Name="view"></viewModels:EditIssueView>
+    </ContentView.BindingContext>
+    <ContentView.Resources>
+        <ResourceDictionary>
+
+            <localX1:PaddingConverter x:Key="paddingConverter"></localX1:PaddingConverter>
+            <localX1:AbsoluteLayoutBounds x:Key="AbsoluteLayoutBounds"></localX1:AbsoluteLayoutBounds>
+            <localX1:HeightConverter x:Key="heightConverter" ></localX1:HeightConverter>
+            <local:FontSizeConverter x:Key="FontSizeConverter"></local:FontSizeConverter>
+            <localX1:TextFontSizeConverter x:Key="TextFontSizeConverter"></localX1:TextFontSizeConverter>
+            <Style  x:Key="labelsStyle" x:Name="labelsStyle" TargetType="Label">
+                <Setter Property="Margin" Value="{OnIdiom Phone='9,0,0,0',Default='9,0,0,0',Tablet='11,0,0,0',Converter={StaticResource Key=paddingConverter}}"></Setter>
+                <Setter x:Name="backColor" Property="BackgroundColor" Value="Transparent" ></Setter>
+                <Setter x:Name="textSize" Property="FontSize" Value="{d:OnIdiom Phone=29,Tablet=31,TV=44,Converter={StaticResource Key=FontSizeConverter}}"></Setter>
+                <Setter x:Name="verticalOption" Property="VerticalOptions" Value="Center"></Setter>
+                <Setter x:Name="horizontalalOption" Property="HorizontalOptions" Value="Start"></Setter>
+            </Style>
+            <Style  x:Key="placeholderLblsStyle" x:Name="placeholderLblsStyle" TargetType="Label">
+                <Setter x:Name="backColor" Property="BackgroundColor" Value="Transparent" ></Setter>
+                <Setter x:Name="textSize" Property="FontSize" Value="{d:OnIdiom Phone=14,Tablet=17,TV=20,Converter={StaticResource Key=FontSizeConverter}}"></Setter>
+                <Setter x:Name="verticalOption" Property="VerticalOptions" Value="Center"></Setter>
+                <Setter x:Name="horizontalalOption" Property="HorizontalOptions" Value="Start"></Setter>
+            </Style>
+            <Style x:Key="PickerStyle" TargetType="Picker">
+                <Setter Property="FontSize"  Value="{d:OnIdiom Phone=12,Tablet=17,TV=24,Converter={StaticResource Key=TextFontSizeConverter}}"></Setter>
+            </Style>
+            <Style TargetType="Entry">
+
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <AbsoluteLayout>
+            <ContentView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" >
+                
+            </ContentView>
+        <Grid x:Name="MainGridLayout" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" >
+            <Grid.RowDefinitions>
+                    <RowDefinition Height="12*"></RowDefinition>
+                    <RowDefinition Height="2.5*"></RowDefinition>
+                </Grid.RowDefinitions>
+            <AbsoluteLayout>
+               
+                <ScrollView x:Name="EditIssueViewScroll" AbsoluteLayout.LayoutBounds="0,0,1,1"  AbsoluteLayout.LayoutFlags="All" Grid.Row="0">
+
+                    <StackLayout x:Name="MainStackLayout">
+                        <Grid Padding="0" BackgroundColor="#F3F3F3"  HeightRequest="{ d:OnIdiom Phone=120,Tablet=130,Converter={StaticResource  heightConverter}}">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="CalendarGrd_Tapped"></TapGestureRecognizer>
+                            </Grid.GestureRecognizers>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*" ></ColumnDefinition>
+                                <ColumnDefinition Width="5*" ></ColumnDefinition>
+                                <ColumnDefinition Width="1*" ></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" Source="Calendar.png" HorizontalOptions="Center" VerticalOptions="Center" Aspect="AspectFill"></Image>
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"></RowDefinition>
+                                    <RowDefinition Height="2*"></RowDefinition>
+                                    <RowDefinition Height="1*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <StackLayout Grid.Row="1">
+
+
+                                    <Label  BackgroundColor="Transparent" 
+                               Style="{StaticResource labelsStyle}" 
+                                   
+                               FontSize="{d:OnIdiom Phone=21,Tablet=24,TV=29,Converter={StaticResource Key=TextFontSizeConverter}}" 
+                               Text="Reporting date">
+                                    </Label>
+                                    <Label  BackgroundColor="Transparent" 
+                               Style="{StaticResource labelsStyle}" 
+                               FontSize="{d:OnIdiom Phone=21,Tablet=24,TV=29,Converter={StaticResource Key=TextFontSizeConverter}}"
+                               Text="{Binding IssuesCreatedDate}">
+                                    </Label>
+                                </StackLayout>
+                            </Grid>
+                            <Grid Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="3*"></RowDefinition>
+                                    <RowDefinition Height="2*"></RowDefinition>
+                                    <RowDefinition Height="3*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Image x:Name="calendarGrdArrow" Grid.Row="1" Source="arrow_Down.png" VerticalOptions="Center" HorizontalOptions="Center"></Image>
+                            </Grid>
+                        </Grid>
+                        <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                        <Frame Padding="0" CornerRadius="8" BackgroundColor="#F3F3F3"  HeightRequest="{ d:OnIdiom Phone=120,Tablet=130,Converter={StaticResource  heightConverter}}"  Grid.Row="3">
+                            <Grid 
+                            Padding="0"
+                            BackgroundColor="Transparent">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="3*"></RowDefinition>
+                                    <RowDefinition Height="3*"></RowDefinition>
+                                    <RowDefinition Height="2*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label x:Name="IssueNumberLbl" Grid.Row="0" Text="{Binding IssueId}" BackgroundColor="Transparent" TextColor="LightBlue" Style="{StaticResource labelsStyle}" ></Label>
+                                <Label x:Name="IssueNameLbl" Grid.Row="1" BackgroundColor="Transparent" Style="{StaticResource labelsStyle}" Text="{Binding IssuesTitle}"></Label>
+                                <Image x:Name="NamePenAndPaper"  Aspect="AspectFill" Grid.Row="2" Source="PenAndPaper.png" HorizontalOptions="End"></Image>
+                            </Grid>
+                        </Frame>
+                        <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                        <Frame Padding="0" CornerRadius="8" BackgroundColor="#F3F3F3"  HeightRequest="{ d:OnIdiom Phone=120,Tablet=130,Converter={StaticResource  heightConverter}}"  Grid.Row="3">
+                            <Grid 
+                        Padding="0"
+                        BackgroundColor="Transparent">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"></RowDefinition>
+                                    <RowDefinition Height="4*"></RowDefinition>
+                                    <RowDefinition Height="2*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" BackgroundColor="Transparent" 
+                               Style="{StaticResource labelsStyle}" 
+                               FontSize="{d:OnIdiom Phone=15,Tablet=20,TV=24,Converter={StaticResource Key=TextFontSizeConverter}}" 
+                               FontAttributes="Italic" Text="Project"></Label>
+                                <Label x:Name="ProjectNameLbl" Grid.Row="1" BackgroundColor="Transparent" Style="{StaticResource labelsStyle}" Text="{Binding IssuesProjectsTitle}"></Label>
+                                <Image x:Name="ProjectNamePenAndPaper" Grid.Row="2" Source="PenAndPaper.png" HorizontalOptions="End"></Image>
+                            </Grid>
+                        </Frame>
+                        <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                        <Frame Padding="0" CornerRadius="8" BackgroundColor="#F3F3F3"  HeightRequest="{ d:OnIdiom Phone=120,Tablet=130,Converter={StaticResource  heightConverter}}"  Grid.Row="3">
+                            <Grid 
+                    Padding="0"
+                    
+                    BackgroundColor="Transparent"
+                     >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"></RowDefinition>
+                                    <RowDefinition Height="4*"></RowDefinition>
+                                    <RowDefinition Height="2*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" BackgroundColor="Transparent" 
+                               Style="{StaticResource labelsStyle}" 
+                               FontSize="{d:OnIdiom Phone=15,Tablet=20,TV=24,Converter={StaticResource Key=TextFontSizeConverter}}" 
+                               FontAttributes="Italic" Text="Issue description"></Label>
+                                <ScrollView Grid.Row="1">
+                                    <Label x:Name="DescriptionLbl"  BackgroundColor="Transparent" 
+                                Style="{StaticResource labelsStyle}" LineBreakMode="WordWrap" 
+                                FontSize="{d:OnIdiom Phone=15,Tablet=18,TV=21,Converter={StaticResource Key=TextFontSizeConverter}}"
+                                Text="{Binding IssuesDescription}"></Label>
+                                </ScrollView>
+                                <Image x:Name="DescriptionPenAndPaper" Grid.Row="2" Source="PenAndPaper.png" HorizontalOptions="End"></Image>
+                            </Grid>
+                        </Frame>
+                        <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                        <Frame Padding="0" CornerRadius="8" BackgroundColor="Transparent"  HeightRequest="{ d:OnIdiom Phone=120,Tablet=130,Converter={StaticResource  heightConverter}}"  Grid.Row="3">
+                            <Grid 
+                    Padding="0"
+                   
+                    BackgroundColor="Transparent"
+                     >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"></RowDefinition>
+                                    <RowDefinition Height="4*"></RowDefinition>
+                                    <RowDefinition Height="2*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" BackgroundColor="Transparent" 
+                               Style="{StaticResource labelsStyle}" 
+                               FontSize="{d:OnIdiom Phone=15,Tablet=20,TV=24,Converter={StaticResource Key=TextFontSizeConverter}}" 
+                               FontAttributes="Italic" Text="Expected behavior">
+
+                                </Label>
+                                <ScrollView Grid.Row="1">
+                                    <Label   BackgroundColor="Transparent" 
+                                    Style="{StaticResource labelsStyle}" LineBreakMode="WordWrap" 
+                                    FontSize="{d:OnIdiom Phone=15,Tablet=18,TV=21,Converter={StaticResource Key=TextFontSizeConverter}}"
+                                    Text="{Binding IssuesExpectedBehavior}">
+
+                                    </Label>
+                                </ScrollView>
+
+                                <Image x:Name="ExpectedPenAndPaper" Grid.Row="2" Source="PenAndPaper.png" HorizontalOptions="End"></Image>
+                            </Grid>
+                        </Frame>
+                        <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                        <Frame Padding="0" CornerRadius="8" BackgroundColor="#F3F3F3"  HeightRequest="{ d:OnIdiom Phone=300,Tablet=330,Converter={StaticResource  heightConverter}}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"></RowDefinition>
+                                    <RowDefinition Height="5*"></RowDefinition>
+                                    <RowDefinition Height="1*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" BackgroundColor="Transparent" 
+                               Style="{StaticResource labelsStyle}" 
+                               FontSize="{d:OnIdiom Phone=15,Tablet=20,TV=24,Converter={StaticResource Key=TextFontSizeConverter}}" 
+                               FontAttributes="Italic" Text="Attachments"></Label>
+                                <!--<ScrollView Grid.Row="1" x:Name="AttachmentsImgScroll" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center" >-->
+                                <!--<StackLayout Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center"  x:Name="AttachmentsImgLayer" >-->
+                                <!--<ListView x:Name="AttachmentsList" Grid.Row="1"  HeightRequest="{ d:OnIdiom Phone=1000,Tablet=1030,Converter={StaticResource  heightConverter}}" ItemsSource="{Binding Source={x:Reference view}, Path=Attachments}"  >
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <ViewCell>
+                                                        <ViewCell.View>
+                                                            <Grid>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="2*"></RowDefinition>
+                                                                <RowDefinition Height="10*"></RowDefinition>
+                                                               
+                                                            </Grid.RowDefinitions>
+                                                            <Label Grid.Row="0" BindingContext="{Binding AttachmentImage}" BackgroundColor="White" Text="{Binding  AttachmentsLink}"></Label>
+                                                            <Image Grid.Row="1" Source="{Binding  FullUrl1}" Aspect="AspectFit"></Image>
+                                                            </Grid>
+                                                        </ViewCell.View>
+                                                    </ViewCell>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>-->
+                                    <CarouselView Grid.Row="1" x:Name="AttachmentsList"  ItemsSource="{Binding Source={x:Reference view}, Path=Attachments}">
+                                        <CarouselView.ItemTemplate>
+                                            <DataTemplate>
+
+                                            <Grid BackgroundColor="White" Padding="{OnIdiom Phone='9,0,9,0',Default='9,0,9,0',Tablet='11,0,11,0',Converter={StaticResource Key=paddingConverter}}">
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="2*"></RowDefinition>
+                                                                <RowDefinition Height="10*"></RowDefinition>
+                                                                <RowDefinition Height="2*"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Label Grid.Row="0" Style="{StaticResource labelsStyle}" FontSize="{d:OnIdiom Phone=10,Tablet=14,TV=18,Default=14,Converter={StaticResource Key=TextFontSizeConverter}}" BackgroundColor="White" Text="{Binding  AttachmentsLink}"></Label>
+                                                            <Image Grid.Row="1" Aspect="AspectFit" Source="{Binding FullUrl1}" ></Image>
+                                                <Grid Grid.Row="2">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label Grid.Column="0" Text="{Binding  AttachmentsUsername}" Style="{StaticResource labelsStyle}" FontSize="{d:OnIdiom Phone=10,Tablet=14,TV=18,Default=14,Converter={StaticResource Key=TextFontSizeConverter}}"></Label>
+                                                    <Label Grid.Column="1" Text="{Binding  AttachmentsDate}" Style="{StaticResource labelsStyle}" FontSize="{d:OnIdiom Phone=10,Tablet=14,TV=18,Default=14,Converter={StaticResource Key=TextFontSizeConverter}}"></Label>
+                                                </Grid>
+                                              
+                                                        </Grid>
+                                                   
+                                            </DataTemplate>
+                                        </CarouselView.ItemTemplate>
+                                    </CarouselView>
+                                    <!--</StackLayout>-->
+                                <!--</ScrollView>-->
+                                <Grid Grid.Row="2" x:Name="PlusIconGrd">
+                                    
+                                    <!--<Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"></TapGestureRecognizer>
+                                    </Grid.GestureRecognizers>-->
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                        <ColumnDefinition Width="6*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0"  Source="greenPlus.png" HorizontalOptions="End" VerticalOptions="Center"></Image>
+                                    <Label  Grid.Column="1" BackgroundColor="Transparent" 
+                               Style="{StaticResource labelsStyle}" LineBreakMode="WordWrap" 
+                               TextColor="#82bc00"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Start"
+                               Text="Add"></Label>
+                                </Grid>
+                            </Grid>
+                        </Frame>
+                        <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                        <Frame Padding="0" CornerRadius="8" BackgroundColor="Transparent"  HeightRequest="{ d:OnIdiom Phone=120,Tablet=130,Converter={StaticResource  heightConverter}}">
+                            <Grid x:Name="PickerGrd"  BackgroundColor="Transparent">
+                                <!--<Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="PickerGrd_Tapped" ></TapGestureRecognizer>
+                        </Grid.GestureRecognizers>-->
+                                <Grid.Resources>
+                                    <ResourceDictionary>
+
+                                    </ResourceDictionary>
+                                </Grid.Resources>
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="10*" ></ColumnDefinition>
+                                    <ColumnDefinition Width="2*" ></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label x:Name="PickedPickerItemText" Grid.Column="0" Style="{ StaticResource labelsStyle}" Text="Comments"  TextColor="#82bc00" ></Label>
+                                <Grid Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Image  Grid.Column="1" Source="arrow_Down.png" Aspect="AspectFit" IsOpaque="True"></Image>
+                                </Grid>
+                            </Grid>
+                        </Frame>
+                        <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                        <Frame  Padding="0" CornerRadius="8" BackgroundColor="Transparent"  HeightRequest="{ d:OnIdiom Phone=200,Tablet=220,Converter={StaticResource  heightConverter}}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"></RowDefinition>
+                                    <RowDefinition Height="12*"></RowDefinition>
+                                    <RowDefinition Height="2*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" BackgroundColor="Transparent" 
+                               Style="{StaticResource labelsStyle}" 
+                               FontSize="{d:OnIdiom Phone=15,Tablet=20,TV=24,Converter={StaticResource Key=TextFontSizeConverter}}" 
+                                Text="Add a comment"></Label>
+                                <Frame Margin="{d:OnIdiom Phone=15, Tablet=18,Converter={StaticResource Key=paddingConverter}}" x:Name="commentFrm" Grid.Row="1" CornerRadius="8" BackgroundColor="#F3F3F3">
+                                    <Entry
+                                 
+                                BindingContext="{x:Reference commentFrm}"
+                                HeightRequest="{Binding Path=HeightRequest}"
+                                WidthRequest="{Binding Path=WidthRequest}"
+                                x:Name="commentEditor"
+                                BackgroundColor="Transparent"
+                                FontSize="{d:OnIdiom Phone=12,Tablet=17,TV=24,Converter={StaticResource Key=TextFontSizeConverter}}"
+                                Text="{Binding CommentsComment}">
+                                
+
+                                    </Entry>
+                                </Frame>
+
+                            </Grid>
+
+                        </Frame>
+                        <Frame Padding="0"  BackgroundColor="#F3F3F3"  HeightRequest="{ d:OnIdiom Phone=170,Tablet=190,Converter={StaticResource  heightConverter}}">
+
+                        </Frame>
+                    </StackLayout>
+                </ScrollView>
+                <ContentView x:Name="calendarPopUp" AbsoluteLayout.LayoutBounds="0.5,0.55,1,0.68" AbsoluteLayout.LayoutFlags="All" BackgroundColor="White" IsVisible="False" >
+                    <ContentView.BindingContext>
+                        <viewModels:ReportingDateView x:Name="repView"></viewModels:ReportingDateView>
+                    </ContentView.BindingContext>
+                    <Grid Padding="{x:OnIdiom Phone='12,4,12,4', Tablet='14,4,14,4', Default=12, Converter={StaticResource paddingConverter}}" RowSpacing="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="3*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <AbsoluteLayout   Grid.Row="0" BackgroundColor="Transparent">
+                            <Label x:Name="projectLbl" Text="Project"  Style="{StaticResource placeholderLblsStyle }" 
+                           AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                           AbsoluteLayout.LayoutFlags="All">
+
+                            </Label>
+                            <Label Text="              *" Style="{StaticResource placeholderLblsStyle }"  TextColor="Red" 
+                               AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                           AbsoluteLayout.LayoutFlags="All"></Label>
+                        </AbsoluteLayout>
+                        <Frame Padding="0" BackgroundColor="#F3F3F3" CornerRadius="8"    x:Name="SelectorFrm" Grid.Row="1">
+                            <Grid 
+                                Padding="0"
+                                BindingContext="{x:Reference Name=SelectorFrm}" 
+                                BackgroundColor="Transparent"
+                                HeightRequest="{Binding Path=HeightRequest}" 
+                                WidthRequest="{Binding Path=WidthRequest}" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="17*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <!--<Picker  Grid.Column="0" Visual="Material" Title="Select" ></Picker>-->
+                                <localRenderers:WithoutUnderlinePicker x:Name="StatusesPicker" ItemsSource="{Binding Source={x:Reference repView}, Path=StatusesTitle}"   Grid.Column="0" Style="{d:StaticResource PickerStyle}"  Title="{Binding Source={x:Reference Name=view}, Path=IssuesStatusesTitle}">
+                                  
+                                    <!--<localRenderers:WithoutUnderlinePicker.Items >
+                                        <x:String >Item1</x:String>
+                                        <x:String >Item2</x:String>
+                                        <x:String >Item3</x:String>
+                                    </localRenderers:WithoutUnderlinePicker.Items>-->
+                                </localRenderers:WithoutUnderlinePicker>
+                                <Image Grid.Column="1" HorizontalOptions="End" IsEnabled="False" Source="arrow_Down.png"></Image>
+                            </Grid>
+                        </Frame>
+                        <AbsoluteLayout   Grid.Row="2"  BackgroundColor="Transparent">
+                            <Label x:Name="severityLbl" Text="Severity"  Style="{StaticResource placeholderLblsStyle }" 
+                           AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                           AbsoluteLayout.LayoutFlags="All">
+
+                            </Label>
+                            <Label Text="               *" Style="{StaticResource placeholderLblsStyle }"  TextColor="Red" 
+                               AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                           AbsoluteLayout.LayoutFlags="All"></Label>
+                        </AbsoluteLayout>
+                        <Frame Padding="0" CornerRadius="8" BackgroundColor="#F3F3F3"  HeightRequest="{ d:OnIdiom Phone=40,Tablet=52,Converter={StaticResource  heightConverter}}" x:Name="SeverityFrm" Grid.Row="3">
+                            <Grid 
+                                Padding="0"
+                                BindingContext="{x:Reference Name=SelectorFrm}" 
+                                BackgroundColor="Transparent"
+                                HeightRequest="{Binding Path=HeightRequest}" 
+                                WidthRequest="{Binding Path=WidthRequest}" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="17*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <!--<Picker  Grid.Column="0" Visual="Material" Title="Select" ></Picker>-->
+                                <localRenderers:WithoutUnderlinePicker x:Name="SeverityPicker"  Grid.Column="0" Style="{d:StaticResource PickerStyle}"  Title="{Binding Source={x:Reference view}, Path=IssuesSeverityTitle}" ItemsSource="{Binding Source={x:Reference repView}, Path=SeverityTitle}">
+                                    
+                                </localRenderers:WithoutUnderlinePicker>
+                                <Image Grid.Column="1" HorizontalOptions="End" IsEnabled="False" Source="arrow_Down.png"></Image>
+                            </Grid>
+
+                        </Frame>
+                        <AbsoluteLayout BindingContext="{x:Reference categoryLbl}"   Grid.Row="4"  BackgroundColor="Transparent">
+                            <Label x:Name="categoryLbl" Text="Category"  Style="{StaticResource placeholderLblsStyle }" 
+                           AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                           AbsoluteLayout.LayoutFlags="All">
+
+                            </Label>
+                            <Label Text="                 *" Style="{StaticResource placeholderLblsStyle }"  TextColor="Red" 
+                               AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                           AbsoluteLayout.LayoutFlags="All"></Label>
+                        </AbsoluteLayout>
+                        <Frame Padding="0" CornerRadius="8" BackgroundColor="#F3F3F3"  Grid.Row="5" x:Name="CategoryFrm" >
+                            <Grid 
+                                Padding="0"
+                                BindingContext="{x:Reference Name=SelectorFrm}" 
+                                BackgroundColor="Transparent"
+                                HeightRequest="{Binding Path=HeightRequest}" 
+                                WidthRequest="{Binding Path=WidthRequest}" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="17*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <!--<Picker  Grid.Column="0" Visual="Material" Title="Select" ></Picker>-->
+                                <localRenderers:WithoutUnderlinePicker x:Name="CategoryPicker"  Grid.Column="0" Style="{d:StaticResource PickerStyle}" ItemsSource="{Binding Source={x:Reference repView}, Path=CategoriesTitle}"  Title="{Binding Source={x:Reference view}, Path=IssueCategoriesTitle}"></localRenderers:WithoutUnderlinePicker>
+                                <Image Grid.Column="1" HorizontalOptions="End" IsEnabled="False" Source="arrow_Down.png"></Image>
+                            </Grid>
+                        </Frame>
+                        <Grid Grid.Row="6">
+                            <Grid.Resources>
+                                <ResourceDictionary>
+                                    <Style x:Key="loginExitButton" TargetType="Button">
+                                        <Setter Property="CornerRadius" Value="5"></Setter>
+                                        <Setter Property="TextColor" Value="White"></Setter>
+                                        <Setter Property="FontSize" Value="{d:OnIdiom Phone=12, Tablet=21,Converter={StaticResource Key=TextFontSizeConverter}}"></Setter>
+                                        
+                                    </Style>
+                                </ResourceDictionary>
+                            </Grid.Resources>
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"></RowDefinition>
+                                <RowDefinition Height="6*"></RowDefinition>
+                                <RowDefinition Height="2*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Button Grid.Column="0" Grid.Row="1" Text="Save"  x:Name="CalendarPopUpSaveButton" Clicked="CalendarPopUpSaveButton_Clicked"  Style="{StaticResource loginExitButton}" BackgroundColor="#84BA00" ></Button>
+                            <Button Grid.Column="1" Grid.Row="1" Text="Cancel" x:Name="CalendarPopUpCancelButton" Clicked="CalendarPopUpCancelButton_Clicked"  Style="{StaticResource loginExitButton}" BackgroundColor="White" BorderColor="#84BA00" BorderWidth="{d:OnIdiom Phone=3,Tablet=5}" TextColor="Black"></Button>
+                        </Grid>
+                        <ListView Grid.Row="7" ItemsSource="{Binding Comments}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <ViewCell.View>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="12*"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="1*"></RowDefinition>
+                                                    <RowDefinition Height="1*"></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <Label Grid.Column="1" Grid.Row="1" Style="{StaticResource labelsStyle}" BackgroundColor="White" Text="{Binding CommentsComment }"></Label>
+                                                <Grid Grid.Column="1" Grid.Row="0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label Grid.Column="0" Style="{StaticResource labelsStyle}" BackgroundColor="White" Text="{Binding  CommenterUserName }"></Label>
+                                                    <Label Grid.Column="1" Style="{StaticResource labelsStyle}" BackgroundColor="White" Text="{Binding CommentedDate }">
+                                                        
+                                                    </Label>
+                                                </Grid>
+                                                <StackLayout Grid.Row="0" Grid.Column="0" BackgroundColor="AliceBlue"></StackLayout>
+                                                <StackLayout Grid.Row="0" Grid.Column="1" BackgroundColor="AliceBlue"></StackLayout>
+                                            </Grid>
+                                        </ViewCell.View>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+                </ContentView>
+            </AbsoluteLayout>
+            <Grid x:Name="MainSaveCancleGrd" Grid.Row="1">
+                
+                    <Grid.Resources>
+                        <ResourceDictionary>
+                            <Style x:Key="loginExitButton" TargetType="Button">
+                                <Setter Property="CornerRadius" Value="5"></Setter>
+                                <Setter Property="TextColor" Value="White"></Setter>
+                                <Setter Property="FontSize" Value="{d:OnIdiom Phone=14, Tablet=22,Converter={StaticResource Key=TextFontSizeConverter}}"></Setter>
+                                <Setter Property="Margin" Value="{d:OnIdiom Phone='8,0,8,0', Tablet='11,0,11,0',Converter={StaticResource Key=paddingConverter}}"></Setter>
+                            </Style>
+                        </ResourceDictionary>
+                    </Grid.Resources>
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1.5*"></RowDefinition>
+                        <RowDefinition Height="6.3*"></RowDefinition>
+                        <RowDefinition Height="1.5*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="SaveBtn" Grid.Column="0" Grid.Row="1" Text="Save" Command="{Binding SaveCommand}"   Style="{StaticResource loginExitButton}" BackgroundColor="#84BA00" ></Button>
+                    <Button Grid.Column="1" x:Name="CancelBtn" Grid.Row="1" Text="Cancel"  Clicked="CancelBtn_Clicked" Style="{StaticResource loginExitButton}" BackgroundColor="White" BorderColor="#84BA00" BorderWidth="{d:OnIdiom Phone=3,Tablet=5}" TextColor="Black"></Button>
+                </Grid>
+            </Grid>
+        </AbsoluteLayout>
+
+    </ContentView.Content>
+</ContentView>

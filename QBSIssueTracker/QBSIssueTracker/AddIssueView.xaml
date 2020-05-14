@@ -1,0 +1,358 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:QBSIssueTracker"   
+             xmlns:localX1="clr-namespace:QBSIssueTracker.SizeConverter"
+             xmlns:localRenderers="clr-namespace:QBSIssueTracker.CusromRenderers"
+             xmlns:viewModels="clr-namespace:ViewModels;assembly=ViewModels"
+             mc:Ignorable="d"
+             x:Class="QBSIssueTracker.AddIssueView"
+             x:Name="addIssueView"
+             Padding="10"
+             
+             >
+    <ContentView.BindingContext>
+        <viewModels:AddIssueView x:Name="MainBindingView"></viewModels:AddIssueView>
+    </ContentView.BindingContext>
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <localX1:AbsoluteLayoutBounds x:Key="AbsoluteLayoutBounds"></localX1:AbsoluteLayoutBounds>
+            <localX1:HeightConverter x:Key="heightConverter" ></localX1:HeightConverter>
+            <local:FontSizeConverter x:Key="FontSizeConverter"></local:FontSizeConverter>
+            <localX1:TextFontSizeConverter x:Key="TextFontSizeConverter"></localX1:TextFontSizeConverter>
+            <localX1:PaddingConverter x:Key="PaddingConverter"></localX1:PaddingConverter>
+            <Style  x:Key="labelsStyle" x:Name="labelsStyle" TargetType="Label">
+                <Setter x:Name="backColor" Property="BackgroundColor" Value="Transparent" ></Setter>
+                <Setter x:Name="textSize" Property="FontSize" Value="{d:OnIdiom Phone=30,Tablet=35,TV=44,Converter={StaticResource Key=FontSizeConverter}}"></Setter>
+                <Setter x:Name="verticalOption" Property="VerticalOptions" Value="Center"></Setter>
+                <Setter x:Name="horizontalalOption" Property="HorizontalOptions" Value="Start"></Setter>
+            </Style>
+            <Style  x:Key="placeholderLblsStyle" x:Name="placeholderLblsStyle" TargetType="Label">
+                <Setter x:Name="backColor" Property="BackgroundColor" Value="Transparent" ></Setter>
+                <Setter x:Name="textSize" Property="FontSize" Value="{d:OnIdiom Phone=14,Tablet=17,TV=20,Converter={StaticResource Key=TextFontSizeConverter}}"></Setter>
+                <Setter x:Name="verticalOption" Property="VerticalOptions" Value="Center"></Setter>
+                <Setter x:Name="horizontalalOption" Property="HorizontalOptions" Value="Start"></Setter>
+            </Style>
+            <Style x:Key="PickerStyle" TargetType="Picker">
+                <Setter Property="FontSize" Value="{d:OnIdiom Phone=12,Tablet=17,TV=24,Converter={StaticResource Key=TextFontSizeConverter}}"></Setter>
+            </Style>
+            <Style TargetType="Entry">
+
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="12*"></RowDefinition>
+                <RowDefinition Height="3*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <ScrollView Grid.Row="0" BackgroundColor="Transparent">
+
+                <StackLayout>
+                    <!--<Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
+                </Grid.RowDefinitions>-->
+                    <Label x:Name="AddIssueLbl" Grid.Row="1" Text=" Add a new issue" Style="{StaticResource labelsStyle}" BackgroundColor="Transparent"></Label>
+                    <AbsoluteLayout   Grid.Row="2" HeightRequest="{ d:OnIdiom Phone=40,Tablet=52,Converter={StaticResource  heightConverter}}" BackgroundColor="Transparent">
+                        <Label x:Name="projectLbl" Text="Project"  Style="{StaticResource placeholderLblsStyle }" 
+                           AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                           AbsoluteLayout.LayoutFlags="All">
+
+                        </Label>
+                        <Label Text="              *" Style="{StaticResource placeholderLblsStyle }"  TextColor="Red" 
+                               AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                           AbsoluteLayout.LayoutFlags="All"></Label>
+                    </AbsoluteLayout>
+                    <Frame Padding="0" CornerRadius="8" BackgroundColor="#F3F3F3"  HeightRequest="{ d:OnIdiom Phone=40,Tablet=52,Converter={StaticResource  heightConverter}}" x:Name="SelectorFrm" Grid.Row="3">
+                        <Grid 
+                    Padding="0"
+                    BindingContext="{x:Reference Name=SelectorFrm}" 
+                    BackgroundColor="Transparent"
+                    HeightRequest="{Binding Path=HeightRequest}" 
+                    WidthRequest="{Binding Path=WidthRequest}" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="17*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <!--<Picker  Grid.Column="0" Visual="Material" Title="Select" ></Picker>-->
+                            <localRenderers:WithoutUnderlinePicker x:Name="ProjectPicker" ItemsSource="{Binding Source={x:Reference MainBindingView}, Path=ProjectsTitles}" Grid.Column="0" Style="{d:StaticResource PickerStyle}"  Title="{Binding Source={x:Reference MainBindingView}, Path=ProjectTitle}">
+                               
+                            </localRenderers:WithoutUnderlinePicker>
+                            <Image Grid.Column="1" HorizontalOptions="End" IsEnabled="False" Source="arrow_Down.png"></Image>
+                        </Grid>
+                    </Frame>
+                    <AbsoluteLayout BindingContext="{x:Reference categoryLbl}"   Grid.Row="2" HeightRequest="{ d:OnIdiom Phone=40,Tablet=52,Converter={StaticResource  heightConverter}}" BackgroundColor="Transparent">
+                        <Label x:Name="categoryLbl" Text="Category"  Style="{StaticResource placeholderLblsStyle }" 
+                           AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                           AbsoluteLayout.LayoutFlags="All">
+
+                        </Label>
+                        <Label Text="                 *" Style="{StaticResource placeholderLblsStyle }"  TextColor="Red" 
+                               AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                           AbsoluteLayout.LayoutFlags="All"></Label>
+                    </AbsoluteLayout>
+                    <Frame Padding="0" CornerRadius="8" BackgroundColor="#F3F3F3"  HeightRequest="{ d:OnIdiom Phone=40,Tablet=52,Converter={StaticResource  heightConverter}}" x:Name="CategoryFrm" Grid.Row="3">
+                        <Grid 
+                    Padding="0"
+                    BindingContext="{x:Reference Name=SelectorFrm}" 
+                    BackgroundColor="Transparent"
+                    HeightRequest="{Binding Path=HeightRequest}" 
+                    WidthRequest="{Binding Path=WidthRequest}" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="17*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <!--<Picker  Grid.Column="0" Visual="Material" Title="Select" ></Picker>-->
+                            <localRenderers:WithoutUnderlinePicker x:Name="CategoryPicker" ItemsSource="{Binding Source={x:Reference MainBindingView}, Path=CategoriesTitle}"  Grid.Column="0" Style="{d:StaticResource PickerStyle}"  Title="{Binding Source={x:Reference MainBindingView}, Path=CategoriesTitle}">
+                                
+                            </localRenderers:WithoutUnderlinePicker>
+                            <Image Grid.Column="1" HorizontalOptions="End" IsEnabled="False" Source="arrow_Down.png"></Image>
+                        </Grid>
+                    </Frame>
+                    <AbsoluteLayout   Grid.Row="2" HeightRequest="{ d:OnIdiom Phone=40,Tablet=52,Converter={StaticResource  heightConverter}}" BackgroundColor="Transparent">
+                        <Label x:Name="severityLbl" Text="Severity"  Style="{StaticResource placeholderLblsStyle }" 
+                           AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                           AbsoluteLayout.LayoutFlags="All">
+
+                        </Label>
+                        <Label Text="               *" Style="{StaticResource placeholderLblsStyle }"  TextColor="Red" 
+                               AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                           AbsoluteLayout.LayoutFlags="All"></Label>
+                    </AbsoluteLayout>
+                    <Frame Padding="0" CornerRadius="8" BackgroundColor="#F3F3F3"  HeightRequest="{ d:OnIdiom Phone=40,Tablet=52,Converter={StaticResource  heightConverter}}" x:Name="SeverityFrm" Grid.Row="3">
+                        <Grid 
+                    Padding="0"
+                    BindingContext="{x:Reference Name=SelectorFrm}" 
+                    BackgroundColor="Transparent"
+                    HeightRequest="{Binding Path=HeightRequest}" 
+                    WidthRequest="{Binding Path=WidthRequest}" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="17*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <!--<Picker  Grid.Column="0" Visual="Material" Title="Select" ></Picker>-->
+                            <localRenderers:WithoutUnderlinePicker x:Name="SeverityPicker" ItemsSource="{Binding Source={x:Reference MainBindingView}, Path=SeveritiesTitle}" Grid.Column="0" Style="{d:StaticResource PickerStyle}"  Title="Select">
+                                
+                            </localRenderers:WithoutUnderlinePicker>
+                            <Image Grid.Column="1" HorizontalOptions="End" IsEnabled="False" Source="arrow_Down.png"></Image>
+                        </Grid>
+
+                    </Frame>
+                    <AbsoluteLayout x:Name="TitleLayer"    BackgroundColor="Transparent"
+                                 HeightRequest="{ d:OnIdiom Phone=40,Tablet=52,Converter={StaticResource  heightConverter}}"
+                                >
+                        <Label x:Name="TitleLbl" Text="Title"  Style="{StaticResource placeholderLblsStyle }" 
+                           AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                           AbsoluteLayout.LayoutFlags="All">
+
+                        </Label>
+                        <Label Text="        *" Style="{StaticResource placeholderLblsStyle }"  TextColor="Red" 
+                               AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                           AbsoluteLayout.LayoutFlags="All"></Label>
+                    </AbsoluteLayout>
+                    <Frame Padding="0" CornerRadius="8" BackgroundColor="#F3F3F3"  HeightRequest="{ d:OnIdiom Phone=40,Tablet=52,Converter={StaticResource  heightConverter}}" x:Name="TitelEntFrm" Grid.Row="3">
+                        <Entry
+                    x:Name="titleEntry"
+                    BindingContext="{x:Reference Name=SelectorFrm}" 
+                    BackgroundColor="Transparent"
+                    HeightRequest="{Binding Path=HeightRequest}" 
+                    WidthRequest="{Binding Path=WidthRequest}"
+                    Text="{Binding Source={x:Reference MainBindingView}, Path=IssuesTitle}"    
+                    FontSize="{d:OnIdiom Phone=12,Tablet=17,TV=24,Converter={StaticResource Key=TextFontSizeConverter}}">
+
+
+                        </Entry>
+
+                    </Frame>
+                    <AbsoluteLayout x:Name="DescriptionLayer"  Grid.Row="2"  BackgroundColor="Transparent"
+                                HeightRequest="{ d:OnIdiom Phone=40,Tablet=52,Converter={StaticResource  heightConverter}}" 
+                                AbsoluteLayout.LayoutFlags="All" >
+                        <Label x:Name="DescriptionLbl" Text="Description"  Style="{StaticResource placeholderLblsStyle }" 
+                           AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                           AbsoluteLayout.LayoutFlags="All">
+
+                        </Label>
+                        <Label Text="                      *" 
+                               Style="{StaticResource placeholderLblsStyle }"  TextColor="Red" 
+                               AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                           AbsoluteLayout.LayoutFlags="All"></Label>
+                    </AbsoluteLayout>
+                    <Frame Padding="0" CornerRadius="8" BackgroundColor="#F3F3F3"  HeightRequest="{ d:OnIdiom Phone=80,Tablet=92,Converter={StaticResource  heightConverter}}"  Grid.Row="3">
+                        <Editor
+                    x:Name="descriptionEditor"
+                    BindingContext="{x:Reference Name=SelectorFrm}" 
+                    BackgroundColor="Transparent"
+                    HeightRequest="{Binding Path=HeightRequest}" 
+                    WidthRequest="{Binding Path=WidthRequest}"
+                    Text="{Binding Source={x:Reference MainBindingView}, Path=IssuesDescription}"    
+                    FontSize="{d:OnIdiom Phone=12,Tablet=17,TV=24,Converter={StaticResource Key=TextFontSizeConverter}}">
+
+
+                        </Editor>
+                    </Frame>
+                    <AbsoluteLayout x:Name="expectedBeheviorLayer"  Grid.Row="2"  BackgroundColor="Transparent"
+                                HeightRequest="{ d:OnIdiom Phone=40,Tablet=52,Converter={StaticResource  heightConverter}}" 
+                                AbsoluteLayout.LayoutFlags="All" >
+                        <Label x:Name="expectedBeheviorLbl" Text="Expected Behevior"  Style="{StaticResource placeholderLblsStyle }" 
+                           AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                           AbsoluteLayout.LayoutFlags="All">
+
+                        </Label>
+                        <Label Text="                                   *" 
+                               Style="{StaticResource placeholderLblsStyle }"  TextColor="Red" 
+                               AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                           AbsoluteLayout.LayoutFlags="All"></Label>
+                    </AbsoluteLayout>
+                    <Frame Padding="0" CornerRadius="8" BackgroundColor="#F3F3F3"  HeightRequest="{ d:OnIdiom Phone=80,Tablet=92,Converter={StaticResource  heightConverter}}"  Grid.Row="3">
+                        <Editor
+                    x:Name="expectedBeheviorEditor"
+                    BindingContext="{x:Reference Name=SelectorFrm}" 
+                    BackgroundColor="Transparent"
+                    HeightRequest="{Binding Path=HeightRequest}" 
+                    WidthRequest="{Binding Path=WidthRequest}"
+                    Text="{Binding Source={x:Reference MainBindingView}, Path=IssuesExpectedBehavior}"    
+                    FontSize="{d:OnIdiom Phone=12,Tablet=17,TV=24,Converter={StaticResource Key=TextFontSizeConverter}}">
+
+
+                        </Editor>
+                    </Frame>
+                    <AbsoluteLayout  x:Name="attachmentsLayer"  Grid.Row="2"  BackgroundColor="Transparent"
+                                HeightRequest="{ d:OnIdiom Phone=40,Tablet=52,Converter={StaticResource  heightConverter}}" 
+                                AbsoluteLayout.LayoutFlags="All" >
+                        <Label x:Name="attachmentsLbl" Text="Attachments"  Style="{StaticResource placeholderLblsStyle }" 
+                           AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                           AbsoluteLayout.LayoutFlags="All">
+
+                        </Label>
+                        <Image Source="_asterisk.png" 
+                               IsVisible="False"
+                          BindingContext="{x:Reference Name=TitleLbl}" 
+                          AbsoluteLayout.LayoutBounds="{OnIdiom Phone='0.07, 0.4, 0.25, 0.25',Tablet='0.05, 0.4, 0.25, 0.25'}"
+                          AbsoluteLayout.LayoutFlags="All">
+                        </Image>
+                    </AbsoluteLayout>
+                    <Frame x:Name="AttachmentsFrmForTap" Padding="0" CornerRadius="8" BackgroundColor="#F3F3F3"  HeightRequest="{ d:OnIdiom Phone=30,Tablet=33,Default=30,Converter={StaticResource  heightConverter}}"  >
+                        
+                    </Frame>
+                    <Frame x:Name="AttachmentsFrm" IsVisible="False" Padding="0" CornerRadius="8" BackgroundColor="#F3F3F3"  HeightRequest="{ d:OnIdiom Phone=300,Tablet=330,Default=300,Converter={StaticResource  heightConverter}}"  Grid.Row="3">
+                        <!--<Entry
+                    x:Name="attachmentsEntry"
+                    BindingContext="{x:Reference Name=SelectorFrm}" 
+                    BackgroundColor="Transparent"
+                    HeightRequest="{Binding Path=HeightRequest}" 
+                    WidthRequest="{Binding Path=WidthRequest}"
+                        
+                    FontSize="{d:OnIdiom Phone=12,Tablet=17,TV=24,Converter={StaticResource Key=TextFontSizeConverter}}">
+
+
+                        </Entry>-->
+                        <CarouselView x:Name="AttachmentsList"   ItemsSource="{Binding Source={x:Reference MainBindingView}, Path=Attachments}">
+                            <CarouselView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid BackgroundColor="White" Padding="{OnIdiom Phone='9,0,9,0',Default='9,0,9,0',Tablet='11,0,11,0',Converter={StaticResource Key=PaddingConverter}}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="2*"></RowDefinition>
+                                            <RowDefinition Height="10*"></RowDefinition>
+                                            <RowDefinition Height="2*"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Row="0" Style="{StaticResource labelsStyle}" FontSize="{d:OnIdiom Phone=10,Tablet=14,TV=18,Default=14,Converter={StaticResource Key=TextFontSizeConverter}}" BackgroundColor="White" Text="{Binding  AttachmentsLink}"></Label>
+                                        <Image Grid.Row="1" Aspect="AspectFit" Source="{Binding FullUrl1}" ></Image>
+                                        <Grid Grid.Row="2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Column="0" Text="{Binding  AttachmentsUsername}" Style="{StaticResource labelsStyle}" FontSize="{d:OnIdiom Phone=10,Tablet=14,TV=18,Default=14,Converter={StaticResource Key=TextFontSizeConverter}}"></Label>
+                                            <Label Grid.Column="1" Text="{Binding  AttachmentsDate}" Style="{StaticResource labelsStyle}" FontSize="{d:OnIdiom Phone=10,Tablet=14,TV=18,Default=14,Converter={StaticResource Key=TextFontSizeConverter}}"></Label>
+                                        </Grid>
+                                    </Grid>
+                                </DataTemplate>
+                            </CarouselView.ItemTemplate>
+                        </CarouselView>
+
+                    </Frame>
+                    <AbsoluteLayout x:Name="commentLayer"  Grid.Row="2"  BackgroundColor="Transparent"
+                                HeightRequest="{ d:OnIdiom Phone=40,Tablet=52,Converter={StaticResource  heightConverter}}" 
+                                AbsoluteLayout.LayoutFlags="All" >
+                        <Label x:Name="commentLbl" Text="Comment"  Style="{StaticResource placeholderLblsStyle }" 
+                           AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                           AbsoluteLayout.LayoutFlags="All">
+
+                        </Label>
+                        <Label Text="                  *" Style="{StaticResource placeholderLblsStyle }"  TextColor="Red" IsVisible="False" 
+                               AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                           AbsoluteLayout.LayoutFlags="All"></Label>
+                        <!--<Image Source="_asterisk.png" 
+                               IsVisible="False"
+                          BindingContext="{x:Reference Name=TitleLbl}" 
+                          AbsoluteLayout.LayoutBounds="{OnIdiom Phone='0.07, 0.4, 0.25, 0.25',Tablet='0.05, 0.4, 0.25, 0.25'}"
+                          AbsoluteLayout.LayoutFlags="All">
+                        </Image>-->
+                    </AbsoluteLayout>
+                    
+                   <Frame Padding="0" CornerRadius="8" BackgroundColor="#F3F3F3"  HeightRequest="{ d:OnIdiom Phone=80,Tablet=92,Converter={StaticResource  heightConverter}}"  Grid.Row="3">
+                        <Editor
+                    x:Name="commentEditor"
+                    BindingContext="{x:Reference Name=SelectorFrm}" 
+                    BackgroundColor="Transparent"
+                    HeightRequest="{Binding Path=HeightRequest}" 
+                    WidthRequest="{Binding Path=WidthRequest}" 
+                    Text="{Binding Source={x:Reference MainBindingView}, Path=CommentsComment}"
+                    FontSize="{d:OnIdiom Phone=12,Tablet=17,TV=24,Converter={StaticResource Key=TextFontSizeConverter}}">
+                        </Editor>
+                    </Frame>
+                    
+                    <!--</Grid>-->
+                </StackLayout>
+            </ScrollView>
+
+            <Grid Grid.Row="1">
+                <Grid.Resources>
+                    <ResourceDictionary>
+                        <Style x:Key="loginExitButton" TargetType="Button">
+                            <Setter Property="CornerRadius" Value="5"></Setter>
+                            <Setter Property="TextColor" Value="White"></Setter>
+                            <Setter Property="FontSize" Value="{d:OnIdiom Phone=14, Tablet=22, Converter={StaticResource Key= TextFontSizeConverter}}"></Setter>
+                            <Setter Property="Margin" Value="{d:OnIdiom Phone='15,0,15,0', Tablet='25,0,25,0',Converter={StaticResource Key=PaddingConverter}}"></Setter>
+                        </Style>
+                    </ResourceDictionary>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="7.6*"></RowDefinition>
+                    <RowDefinition Height="3*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Button Grid.Column="0" Grid.Row="1" Text="Add"  Command="{Binding AddButtonCommand}"  Style="{StaticResource loginExitButton}" BackgroundColor="#84BA00" ></Button>
+                <Button x:Name="CancelBtn"  Grid.Column="1" Grid.Row="1" Text="Cancel"  Clicked="CancelBtn_Clicked" Style="{StaticResource loginExitButton}" BackgroundColor="White" BorderColor="#84BA00" BorderWidth="{d:OnIdiom Phone=3,Tablet=5}" TextColor="Black"></Button>
+            </Grid>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

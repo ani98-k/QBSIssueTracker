@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+          
+             xmlns:local="clr-namespace:QBSIssueTracker"   
+             xmlns:localX1="clr-namespace:QBSIssueTracker.SizeConverter"
+             xmlns:localRenderers="clr-namespace:QBSIssueTracker.CusromRenderers"
+             mc:Ignorable="d"
+             x:Class="QBSIssueTracker.LoginPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <localX1:TextFontSizeConverter x:Key="TextFontSizeConverter"></localX1:TextFontSizeConverter>
+            <localX1:PaddingConverter x:Key="PaddingConverter"></localX1:PaddingConverter>
+            <Style  x:Key="labelsStyle" x:Name="labelsStyle" TargetType="Label">
+                <Setter x:Name="backColor" Property="BackgroundColor" Value="Transparent" ></Setter>
+                <Setter x:Name="textSize" Property="FontSize" Value="{d:OnIdiom Phone=19,Tablet=29,TV=44,Converter={StaticResource Key=TextFontSizeConverter}}"></Setter>
+                <Setter x:Name="verticalOption" Property="VerticalOptions" Value="Center"></Setter>
+                <Setter x:Name="horizontalalOption" Property="HorizontalOptions" Value="Start"></Setter>
+            </Style>
+            <Style x:Key="entryUsernamePasswordStyle" x:Name="entryUsernamePasswordStyle" TargetType="Entry">
+                <Setter x:Name="backColor" Property="BackgroundColor" Value="#F3F3F3" ></Setter>
+                <Setter x:Name="width" Property="WidthRequest" Value="170"></Setter>
+            </Style>
+            <Style x:Key="frameStyle" x:Name="frameStyle" TargetType="Frame">
+                <Setter x:Name="backCollor" Property="BackgroundColor" Value="#F3F3F3"></Setter>
+                <Setter x:Name="cornerRadius" Property="CornerRadius" Value="10"></Setter>
+                <Setter Property="BorderColor" Value="Transparent"></Setter>
+                <Setter Property="VerticalOptions" Value="Center"></Setter>
+                <Setter Property="Padding" Value="0,0,0,0"></Setter>
+                <Setter x:Name="margin" Property="Margin" Value="{d:OnIdiom Phone ='5,5,5,5', Tablet='5,0,5,0',TV='7',Converter={StaticResource Key=PaddingConverter}}"></Setter>
+            </Style>
+            <Style x:Key="loginExitButton" TargetType="Button">
+                <Setter Property="CornerRadius" Value="5"></Setter>
+                <Setter Property="TextColor" Value="White"></Setter>
+                
+                <Setter Property="Padding" Value="0,0,0,0"></Setter>
+                <Setter Property="FontSize" Value="{d:OnIdiom Phone=16, Tablet=23,Converter={StaticResource Key=TextFontSizeConverter}}"></Setter>
+                <Setter Property="Margin" Value="{d:OnIdiom Phone='15,0,15,0', Tablet='25,0,25,0',Converter={StaticResource Key=PaddingConverter}}"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid BackgroundColor="Transparent">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*"></RowDefinition>
+                <RowDefinition Height="4*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="3*"></RowDefinition>
+                <RowDefinition Height="2.5*"></RowDefinition>
+                <RowDefinition Height="3.5*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Image Grid.Row="0" Source="QBSLogo.jpg" Aspect="AspectFit" VerticalOptions="Center" HorizontalOptions="Center"></Image>
+            <Label Grid.Row="1" Text="  Login to QBS Issue Tracker" TextColor="Black" BackgroundColor="Transparent" FontAttributes='None' FontSize="{OnIdiom Phone=27, Tablet=45, TV=60}" VerticalOptions="Start" HorizontalOptions="StartAndExpand"  ></Label>
+            <Label Grid.Row="2" Text=" User Name" Style="{StaticResource labelsStyle}" BackgroundColor="Transparent"></Label>
+            <Frame Grid.Row="3"  x:Name="UsernameEntryFrame" Style="{StaticResource frameStyle}">
+                <Entry 
+                       x:Name="userNameEntry"
+                       BindingContext="{x:Reference Name=UsernameEntryFrame}" 
+                       HeightRequest="{Binding Path=HeightRequest}"
+                       WidthRequest="{Binding Path=WidthRequest}" BackgroundColor="Transparent"> </Entry>
+            </Frame>
+            <Label Grid.Row="4"  Text=" Password" Style="{StaticResource labelsStyle}" BackgroundColor="Transparent"></Label>
+            <Frame Grid.Row="5" x:Name="passwordEntryFrame" Style="{StaticResource frameStyle}">
+                <Entry x:Name="passwordEntry"
+                       BindingContext="{x:Reference Name=passwordEntryFrame}" 
+                       HeightRequest="{Binding Path=HeightRequest}"
+                       WidthRequest="{Binding Path=WidthRequest}" BackgroundColor="Transparent" IsPassword="True"></Entry>
+            </Frame>
+            <Grid Grid.Row="7">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Text="Login" Clicked="Button_Clicked"  Style="{StaticResource loginExitButton}" BackgroundColor="#84BA00" ></Button>
+                <Button Grid.Column="1" Text="Exit" Clicked="ExitButton_Clicked"  Style="{StaticResource loginExitButton}" BackgroundColor="White" BorderColor="#84BA00" BorderWidth="{d:OnIdiom Phone=3,Tablet=5}" TextColor="Black"></Button>
+            </Grid>
+            
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

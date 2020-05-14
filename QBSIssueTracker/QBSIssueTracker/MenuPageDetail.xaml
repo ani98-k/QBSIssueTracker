@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:local="clr-namespace:QBSIssueTracker"   
+             xmlns:viewModels="clr-namespace:ViewModels;assembly=ViewModels"
+             xmlns:localX1="clr-namespace:QBSIssueTracker.SizeConverter"
+             x:Class="QBSIssueTracker.MenuPageDetail"
+             Title="Detail"
+             x:Name="asdf"
+             >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Name="ToolbarIconsStyle" x:Key="ToolbarIconsStyle" TargetType="Image">
+                <Setter Property="Margin" Value="{x:OnIdiom Phone='4,4,4,4', Tablet='9,9,9,9'}"></Setter>
+            </Style>
+            <localX1:TextFontSizeConverter x:Key="TextFontSizeConverter"></localX1:TextFontSizeConverter>
+            <localX1:PaddingConverter x:Key="paddingConverter" ></localX1:PaddingConverter>
+            <local:FontSizeConverter x:Key="fontConvert" ></local:FontSizeConverter>
+            <Style  x:Key="labelsStyle" x:Name="labelsStyle" TargetType="Label">
+                <Setter Property="FontAttributes" Value="None"></Setter>
+
+                <Setter x:Name="backColor" Property="BackgroundColor" Value="Transparent" ></Setter>
+                <Setter x:Name="textSize" Property="FontSize" Value="{d:OnIdiom Phone=30,Tablet=49,TV=74,Converter={StaticResource Key=fontConvert}}"></Setter>
+                <Setter x:Name="verticalOption" Property="VerticalOptions" Value="Center"></Setter>
+                <Setter x:Name="horizontalalOption" Property="HorizontalOptions" Value="Start"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+
+        <AbsoluteLayout x:Name="MainLayout">
+
+
+            <Grid x:Name="MainGridLayout"  AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="12*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+
+                <Grid x:Name="ToolbarGrid" Grid.Row="0" Margin="0" BackgroundColor="#417CCA" >
+                    <Grid.RowDefinitions >
+                        <RowDefinition Height="0.5*"></RowDefinition>
+                        <RowDefinition Height="20*"></RowDefinition>
+                        <RowDefinition Height="0.5*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                   <Image  x:Name="ToolbarmenuImage" Grid.Row="0" Style="{StaticResource ToolbarIconsStyle}" Source="menu_White.png">
+                    </Image>
+                    <Image Grid.Column="5" Source="_search.png" Style="{StaticResource ToolbarIconsStyle}" BindingContext="{x:Reference Name=ToolbarmenuImage}" HeightRequest="{Binding Path=HeightRequest}" WidthRequest="{Binding Path=WidthRequest}">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="SeartchToolbar_Clicked"></TapGestureRecognizer>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image x:Name="imgPlus" Grid.Column="7" Source="_plus.png" Style="{StaticResource ToolbarIconsStyle}" BindingContext="{x:Reference Name=ToolbarmenuImage}" HeightRequest="{Binding Path=HeightRequest}" WidthRequest="{Binding Path=WidthRequest}"></Image>
+                    <AbsoluteLayout Grid.Column="6" BindingContext="{x:Reference Name=ToolbarmenuImage}" HeightRequest="{Binding Path=HeightRequest}" WidthRequest="{Binding Path=WidthRequest}" BackgroundColor="Transparent">
+                        <Image x:Name="bellImg" Style="{StaticResource ToolbarIconsStyle}"  Source="_bell_White.png" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All"></Image>
+                        <Frame  AbsoluteLayout.LayoutBounds="1, 0, 0.5, 0.5" AbsoluteLayout.LayoutFlags="All"
+                            HeightRequest="20" WidthRequest="20" CornerRadius="10" BackgroundColor="#81B315" 
+                            Padding="0">
+                            <Label  Text="2" FontSize="{OnIdiom Phone=13, Tablet=23,Watch=9,Converter={StaticResource Key=TextFontSizeConverter}}" LineBreakMode="CharacterWrap" TextColor="White" FontAttributes="Bold" BackgroundColor="Transparent" VerticalTextAlignment="Center" HorizontalTextAlignment="Center">
+
+                            </Label>
+                        </Frame>
+                    </AbsoluteLayout>
+                    </Grid>
+                </Grid>
+                <StackLayout x:Name="MainContent" Padding="0" Margin="0" Grid.Row="1" ></StackLayout>
+               
+            </Grid>
+            <ContentView x:Name="notView" BackgroundColor="Black" IsVisible="False" Padding="10" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" ></ContentView>
+            <ContentView x:Name="SearchView" IsVisible="False" IsEnabled="False" BackgroundColor="#343434" Padding="10" AbsoluteLayout.LayoutBounds="0.5,0.5,1,0.4" AbsoluteLayout.LayoutFlags="All">
+                <ContentView.BindingContext>
+                    <viewModels:SearchIssueViewModel></viewModels:SearchIssueViewModel>
+                </ContentView.BindingContext>
+                <ContentView.Resources>
+                    <ResourceDictionary>
+                        
+                        <Style x:Key="loginExitButton" TargetType="Button">
+                            <Setter Property="CornerRadius" Value="5"></Setter>
+                            <Setter Property="TextColor" Value="White"></Setter>
+                            <Setter Property="FontSize" Value=
+                                    "{d:OnIdiom Phone=17, Tablet=27,Converter={StaticResource Key=TextFontSizeConverter }}">
+                                
+                            </Setter>
+                            
+                        </Style>
+                        <Style  x:Key="EntrylabelStyle" x:Name="EntrylabelStyle" TargetType="Label">
+                            <Setter x:Name="backColor" Property="BackgroundColor" Value="Transparent" ></Setter>
+                            <Setter x:Name="textSize" Property="FontSize" Value=
+                                    "{d:OnIdiom Phone=21,Tablet=32,TV=44,Converter={StaticResource Key=TextFontSizeConverter }}">
+                            </Setter>
+                            <Setter x:Name="verticalOption" Property="VerticalOptions" Value="Center"></Setter>
+                            <Setter x:Name="horizontalalOption" Property="HorizontalOptions" Value="Start"></Setter>
+                        </Style>
+                    </ResourceDictionary>
+                </ContentView.Resources>
+                <Grid x:Name="ContentGrid">
+                    <Grid.RowDefinitions >
+                        <RowDefinition Height="3*"></RowDefinition>
+                        <RowDefinition Height="2*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="2.5*"></RowDefinition>
+                        <RowDefinition Height="0.5*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Style="{StaticResource EntrylabelStyle}" Text="Enter a keyword to search issues" BackgroundColor="Transparent" TextColor="White" HorizontalOptions="Start" VerticalOptions="Center"></Label>
+                    <Entry x:Name="SearchEntry" Text="{Binding  EntryContext}" Margin="0" BindingContext="{x:Reference Name=ContentGrid}" HeightRequest="{Binding Path=HeightRequest}" BackgroundColor="White" Grid.Row="1" ></Entry>
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="searchButton" Grid.Column="0" Text="Search" Command="{Binding SearchCommand}"   Style="{StaticResource loginExitButton}" BackgroundColor="#84BA00" ></Button>
+                        <Button Grid.Column="1" x:Name="SearchViewCancelBtn" Text="Cancel"  Style="{StaticResource loginExitButton}" BackgroundColor="DarkSlateGray" Clicked="SearchViewCancelBtn_Clicked" BorderColor="#84BA00" BorderWidth="{d:OnIdiom Phone=3,Tablet=5}" TextColor="Black"></Button>
+                    </Grid>
+                </Grid>
+            </ContentView>
+        </AbsoluteLayout>
+        
+     
+    </ContentPage.Content>
+    
+   
+</ContentPage>

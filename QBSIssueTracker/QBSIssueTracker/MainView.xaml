@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:local="clr-namespace:QBSIssueTracker"   
+             xmlns:localX1="clr-namespace:QBSIssueTracker.SizeConverter"
+             xmlns:viewModels="clr-namespace:ViewModels;assembly=ViewModels"
+             x:Class="QBSIssueTracker.MainView">
+    <ContentView.BindingContext>
+        <viewModels:IssueListViewModel>
+            
+        </viewModels:IssueListViewModel>
+    </ContentView.BindingContext>
+    <ContentView.Resources>
+        <localX1:TextFontSizeConverter x:Key="TextFontSizeConverter"></localX1:TextFontSizeConverter>
+        <localX1:PaddingConverter x:Key="paddingConverter" ></localX1:PaddingConverter>
+        <Style x:Name="ToolbarIconsStyle" x:Key="ToolbarIconsStyle" TargetType="Image">
+            <Setter Property="Margin" Value="{x:OnIdiom Phone='4,4,4,4', Tablet='9,9,9,9'}"></Setter>
+        </Style>
+        <Style x:Name="IssueStateStyle" x:Key="IssueStateStyle" TargetType="Label">
+            <Setter Property="HorizontalOptions" Value="Start"></Setter>
+            <Setter Property="FontSize" Value="{d:OnIdiom Phone=15,Tablet=17,TV=20,Converter={StaticResource Key=TextFontSizeConverter}}"></Setter>
+            <Setter Property="VerticalOptions" Value="Start"></Setter>
+        </Style>
+       
+        <local:FontSizeConverter x:Key="fontConvert" ></local:FontSizeConverter>
+        <Style  x:Key="labelsStyle" x:Name="labelsStyle" TargetType="Label">
+            <Setter Property="FontAttributes" Value="None"></Setter>
+            <Setter x:Name="backColor" Property="BackgroundColor" Value="Transparent" ></Setter>
+            <Setter x:Name="textSize" Property="FontSize" Value="{d:OnIdiom Phone=25,Tablet=40,TV=47,Converter={StaticResource Key=fontConvert}}"></Setter>
+            <Setter x:Name="verticalOption" Property="VerticalOptions" Value="Center"></Setter>
+            <Setter x:Name="horizontalalOption" Property="HorizontalOptions" Value="Start"></Setter>
+        </Style>
+    </ContentView.Resources>
+  <ContentView.Content>
+        <AbsoluteLayout x:Name="MainLayout">
+            <Grid  AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" x:Name="MainGrid">
+                <Grid.Resources>
+                    
+                    <Style TargetType="Label"  x:Key="LblStyle">
+                        <Setter x:Name="textSize" Property="FontSize" Value="{d:OnIdiom Phone=25,Tablet=40,TV=47,Converter={StaticResource Key=fontConvert}}"></Setter>
+                        <Setter x:Name="verticalOption" Property="VerticalOptions" Value="Center"></Setter>
+                        <Setter x:Name="horizontalalOption" Property="HorizontalOptions" Value="Start"></Setter>
+                    </Style>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="12*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Text="  Welcome to QBS Issue " VerticalOptions="End" Style="{StaticResource labelsStyle}"></Label>
+                <Label Grid.Row="1" Text="  Tracker" VerticalOptions="Start" Style="{StaticResource labelsStyle}"></Label>
+                <Grid x:Name="PickerGrd" Grid.Row="2" BackgroundColor="#EBEBEB">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="PickerGrd_Tapped" ></TapGestureRecognizer>
+                    </Grid.GestureRecognizers>
+                    <Grid.Resources>
+                        <ResourceDictionary>
+
+                        </ResourceDictionary>
+                    </Grid.Resources>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" ></ColumnDefinition>
+                        <ColumnDefinition Width="10*" ></ColumnDefinition>
+                        <ColumnDefinition Width="2*" ></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Image x:Name="PickedPickerItemLogeImg" Grid.Column="0" Source="CircleLogo.png" Aspect="AspectFill" IsOpaque="True"></Image>
+                    <Label x:Name="PickedPickerItemText" Grid.Column="1" Style="{ StaticResource LblStyle}" Text="Total Issues" ></Label>
+                    <Image Margin="{d:OnIdiom Phone=15, Tablet=18,Converter={StaticResource Key=paddingConverter}}" Grid.Column="2" Source="arrow_Down.png" Aspect="AspectFit" IsOpaque="True"></Image>
+                </Grid>
+                <Grid Grid.Row="4" BackgroundColor="#343434">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Style="{ StaticResource LblStyle}" FontSize="{d:OnIdiom Phone=19,Tablet=24,TV=45,Converter={StaticResource Key=TextFontSizeConverter}}" Margin="{d:OnIdiom Phone='3,10,0,10', Tablet='3,13,0,13',Converter={StaticResource Key=paddingConverter}}" HorizontalOptions="Center"   TextColor="White" Text="Issue" ></Label>
+                    <Label Grid.Column="2" Style="{ StaticResource LblStyle}" FontSize="{d:OnIdiom Phone=19,Tablet=24,TV=45,Converter={StaticResource Key=TextFontSizeConverter}}"  Margin="{d:OnIdiom Phone='3,10,0,10', Tablet='3,13,0,13',Converter={StaticResource Key=paddingConverter}}" HorizontalOptions="Center" TextColor="White" Text="Status" ></Label>
+                </Grid>
+             
+                    <ListView x:Name="issueList" Grid.Row="5" ItemsSource="{Binding Issues}"  >
+                       
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                
+                                <ViewCell>
+                                    <ViewCell.View>
+                                        <Grid  >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                                <ColumnDefinition Width="12*"></ColumnDefinition>
+                                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                                                <ColumnDefinition Width="4*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                        <StackLayout x:Name="colorView" Grid.Column="0" BackgroundColor="{Binding StatusColor }"></StackLayout>
+                                            <Label Grid.Column="1" Style="{ StaticResource IssueStateStyle}" Text="{Binding IssuesTitle}"></Label>
+                                            <Label x:Name="IssueId" Grid.Column="2" Text="{Binding IssueId}" IsVisible="False"></Label>
+                                            <Label Grid.Column="3" Style="{ StaticResource IssueStateStyle}" Text="{Binding IssuesStatusesTitle }"></Label>
+                                        </Grid>
+                                    </ViewCell.View>
+                                   
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+              
+
+            </Grid>
+            <ContentView  AbsoluteLayout.LayoutBounds="0.5,0.5,1,0.7" AbsoluteLayout.LayoutFlags="All" x:Name="PickerView" Grid.Row="5" IsVisible="False" IsEnabled="False" BackgroundColor="#EBEBEB" >
+                <Grid HorizontalOptions="Center"  >
+                    <Grid.Resources>
+                        <Style TargetType="Label"  x:Key="LblStyle">
+                            <Setter x:Name="textSize" Property="FontSize" Value="{d:OnIdiom Phone=25,Tablet=44,TV=70,Converter={StaticResource Key=fontConvert}}"></Setter>
+                            <Setter x:Name="verticalOption" Property="VerticalOptions" Value="Center"></Setter>
+                            <Setter x:Name="horizontalalOption" Property="HorizontalOptions" Value="Start"></Setter>
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="PickerItem_Tapped"></TapGestureRecognizer>
+                        </Grid.GestureRecognizers>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition Width="10*"></ColumnDefinition>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Image  Grid.Column="0" Source="CircleLogo.png" Aspect="AspectFill" IsOpaque="True"></Image>
+                        <Label  Grid.Column="1" Style="{ StaticResource LblStyle}" Text="Total Issues" ></Label>
+
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="PickerItem_Tapped"></TapGestureRecognizer>
+                        </Grid.GestureRecognizers>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition Width="10*"></ColumnDefinition>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Image   Grid.Column="0" Source="CircleLogo.png" Aspect="AspectFill" IsOpaque="True"></Image>
+                        <Label  Grid.Column="1" Style="{ StaticResource LblStyle}" Text="X Issues" ></Label>
+
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="PickerItem_Tapped"></TapGestureRecognizer>
+                        </Grid.GestureRecognizers>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition Width="10*"></ColumnDefinition>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Image   Grid.Column="0" Source="CircleLogo.png" Aspect="AspectFill" IsOpaque="True"></Image>
+                        <Label  Grid.Column="1" Style="{ StaticResource LblStyle}" Text="Y Issues" ></Label>
+
+                    </Grid>
+
+                </Grid>
+            </ContentView>
+            
+        </AbsoluteLayout>
+    </ContentView.Content>
+</ContentView>

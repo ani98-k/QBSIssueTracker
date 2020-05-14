@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:QBSIssueTracker"     
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            
+             mc:Ignorable="d"
+             x:Class="QBSIssueTracker.MenuPage"
+             xmlns:pages="clr-namespace:QBSIssueTracker"
+                  Appearing="MasterDetailPage_Appearing"   
+                  x:Name="menuPage">
+  <MasterDetailPage.Master>
+        <pages:MenuPageMaster x:Name="MasterPage">
+            <!--<ContentView Padding="0" BackgroundColor="White" >
+                
+                <ContentView.Resources >
+                    <ResourceDictionary>
+                        <local:FontSizeConverter x:Key="fontConvert" ></local:FontSizeConverter>
+                        <FontAttributesConverter x:Key="converterFont" x:Name="fontConvert"></FontAttributesConverter>
+                        <Style x:Key="grdStyle" x:Name="grdStyle" TargetType="Grid">
+                            <Setter x:Name="backgroundColor" Property="BackgroundColor" Value="#343434"></Setter>
+                            <Setter Property="Padding"  Value="{d:OnIdiom Phone='6,6,6,6', Tablet='8,8,8,8', Watch='2,2,2,2'}"></Setter>
+                            <Setter Property="Margin" Value="{d:OnIdiom Phone='0,0,0,0', Tablet='0,0,0,0', Watch='0,0,0,0'}"></Setter>
+                        </Style>
+                        <Style x:Key="LblStyle" x:Name="LblStyle" TargetType="Label">
+                            <Setter  Property="LineBreakMode" Value="NoWrap"></Setter>
+                            --><!--<Setter x:Name="FontSize" Property="FontSize" Value="{d:OnIdiom Phone=25, Tablet=35, TV=60,Watch=10,ConverterParameter=10}"></Setter>--><!--
+                            <Setter x:Name="FontSize" Property="FontSize" Value="{d:OnIdiom Converter={StaticResource Key=fontConvert},Phone=27, Tablet=35, TV=60,Watch=10}" ></Setter>
+                            <Setter Property="TextColor" Value="#8F8F8F"></Setter>
+                            <Setter Property="Margin" Value="{d:OnIdiom Phone='3,3,3,3', Tablet='8,8,8,8', Watch='2,2,2,2'}"></Setter>
+                            <Setter Property="HorizontalOptions" Value="Start"></Setter>
+                            <Setter Property="VerticalOptions" Value="Center"></Setter>
+                           
+                        </Style>
+                        <Style x:Key="iconImageStyle" TargetType="Image">
+                            <Setter Property="Margin" Value="{d:OnIdiom Phone='6,6,6,6', Tablet='8,8,8,8', Watch='2,2,2,2'}"></Setter>
+                        </Style>
+                    </ResourceDictionary>
+                </ContentView.Resources>
+                <Grid x:Name="mainGrd"  IsClippedToBounds="True" RowSpacing="{d:OnIdiom Phone=1, Tablet=2, TV=4,Watch=1}" Margin="0" BackgroundColor="Transparent" >
+                    <Grid.RowDefinitions >
+                        <RowDefinition Height="3*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="3*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Style="{StaticResource grdStyle}">
+                    <Image  HorizontalOptions="Start" VerticalOptions="Start" Source="IssueTrackerLogoGrey.jpg"></Image>
+                    </Grid>
+                    <Grid Grid.Row="1" Style="{StaticResource grdStyle}" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition Width="8*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Image  x:Name="plusIcon" Grid.Column="0" Style="{StaticResource iconImageStyle}" Source="plusIconGrey.png" ></Image>
+                        <Label x:Name="issueLbl" Grid.Column="1" Text=" Add issue" BindingContext="{x:Reference Name=plusIcon}" HeightRequest="{Binding Path=HeightRequest}" Style="{StaticResource LblStyle}"></Label>
+                    </Grid>
+                    <Grid Grid.Row="2" Style="{StaticResource grdStyle}" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition Width="8*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0"  Source="menu.png"
+                               Style="{StaticResource iconImageStyle}"
+                               BindingContext="{d:Reference Name=plusIcon}" 
+                               HeightRequest="{Binding Path=HeightRequest}" 
+                               WidthRequest="{Binding Path=WidthRequest}" 
+                               ></Image>
+                        <Label x:Name="issueLst" Grid.Column="1" Text=" Issue list" Style="{StaticResource LblStyle}"></Label>
+                    </Grid>
+                     <Grid Grid.Row="3" Style="{StaticResource grdStyle}" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition Width="8*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0"  Source="_Home.png"
+                               Style="{StaticResource iconImageStyle}"
+                               BindingContext="{d:Reference Name=plusIcon}" 
+                               HeightRequest="{Binding Path=HeightRequest}" 
+                               WidthRequest="{Binding Path=WidthRequest}" 
+                               ></Image>
+                        <Label Grid.Column="1" Text=" Issue Tracker Portal" Style="{StaticResource LblStyle}"></Label>
+                    </Grid>
+                     <Grid Grid.Row="4" Style="{StaticResource grdStyle}" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition Width="8*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0"  Source="_globe.png"
+                               Style="{StaticResource iconImageStyle}"
+                               BindingContext="{d:Reference Name=plusIcon}" 
+                               HeightRequest="{Binding Path=HeightRequest}" 
+                               WidthRequest="{Binding Path=WidthRequest}" 
+                               ></Image>
+                        <Label Grid.Column="1" Text=" QBS.jo" Style="{StaticResource LblStyle}"></Label>
+                    </Grid>
+                     <Grid Grid.Row="5" Style="{StaticResource grdStyle}" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition Width="8*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0"  Source="_mail.png"
+                               Style="{StaticResource iconImageStyle}"
+                               BindingContext="{d:Reference Name=plusIcon}" 
+                               HeightRequest="{Binding Path=HeightRequest}" 
+                               WidthRequest="{Binding Path=WidthRequest}" 
+                               ></Image>
+                        <Label Grid.Column="1" Text=" Contact us" Style="{StaticResource LblStyle}"></Label>
+                    </Grid>
+                     <Grid Grid.Row="6" Style="{StaticResource grdStyle}" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition Width="8*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0"  Source="_Exit.png"
+                               Style="{StaticResource iconImageStyle}"
+                               BindingContext="{d:Reference Name=plusIcon}" 
+                               HeightRequest="{Binding Path=HeightRequest}" 
+                               WidthRequest="{Binding Path=WidthRequest}" 
+                               ></Image>
+                        <Label Grid.Column="1" Text=" Sign out" Style="{StaticResource LblStyle}"></Label>
+                    </Grid>
+                    <Grid Grid.Row="7" Style="{StaticResource grdStyle}">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" NumberOfTapsRequired="1" ></TapGestureRecognizer>
+                        </Grid.GestureRecognizers>
+                    </Grid>
+                </Grid>
+            </ContentView>-->
+        </pages:MenuPageMaster>
+       
+    </MasterDetailPage.Master>
+  <MasterDetailPage.Detail>
+    <NavigationPage>
+      <x:Arguments>
+                <pages:MenuPageDetail x:Name="menuPageDetail" />
+         
+        <!--<pages:NotificationPage></pages:NotificationPage>-->  
+      </x:Arguments>
+    </NavigationPage>
+  </MasterDetailPage.Detail>
+</MasterDetailPage>
